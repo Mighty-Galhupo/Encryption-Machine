@@ -8,7 +8,7 @@ def message_encrypter():	#Setup and user input
 	message_validity = False
 	
 	print("Do you want to encrypt or decrypt a message?")
-	while operation != 1 and operation != -1:	#To be multiplied later so as to add or subtract leter positions 
+	while operation != 1 and operation != -1:	#To be multiplied later so as to add or subtract letter positions 
 		user_operation = input().lower()
 		if user_operation == "encrypt":
 			operation = 1
@@ -17,7 +17,7 @@ def message_encrypter():	#Setup and user input
 		else:
 			print("Please input a valid operation: encrypt or decrypt")
 			
-	print("Please enter the encryption key.")
+	print("Please enter the encryption key. (Combination of {})".format(VALID_KEYS))
 	while encryption_key_validity == False:	#Check encryption key composition
 		encryption_key = input().upper()
 		encryption_key_validity = True
@@ -25,7 +25,7 @@ def message_encrypter():	#Setup and user input
 			if x not in VALID_KEYS:
 				encryption_key_validity = False
 		if encryption_key_validity == False:
-			print("Please input a valid encryption key.")
+			print("Please input a valid encryption key. (Combination of {})".format(VALID_KEYS))
 			
 	print("Please input the message.")
 	while message_validity == False:
