@@ -2,13 +2,13 @@ ALPHABET = ("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n"
 SPECIAL_CHARACTERS = (" ", "!", "?", ".", ",", ":", "(", ")")
 VALID_KEYS = ("A", "B", "C")
 
-def message_encrypter():	#Setup and user input
+def message_encrypter():	# Setup and user input
 	operation = None
 	encryption_key_validity = False
 	message_validity = False
 	
 	print("Do you want to encrypt or decrypt a message?")
-	while operation != 1 and operation != -1:	#To be multiplied later so as to add or subtract letter positions 
+	while operation != 1 and operation != -1:	# To be multiplied later so as to add or subtract letter positions 
 		user_operation = input().lower()
 		if user_operation == "encrypt":
 			operation = 1
@@ -18,7 +18,7 @@ def message_encrypter():	#Setup and user input
 			print("Please input a valid operation: encrypt or decrypt")
 			
 	print("Please enter the encryption key. (Combination of {})".format(VALID_KEYS))
-	while encryption_key_validity == False:	#Check encryption key composition
+	while encryption_key_validity == False:	# Check encryption key composition
 		encryption_key = input().upper()
 		encryption_key_validity = True
 		for x in encryption_key:
@@ -37,10 +37,10 @@ def message_encrypter():	#Setup and user input
 		if message_validity == False:
 			print("Please input a valid message.")
 			
-	message_shifter(operation, encryption_key, message)
-		
+	print("Your {} message is '{}'".format(user_operation + "ed", message_shifter(operation, encryption_key, message)))
 
-def message_shifter(operation, encryption_key, message):	#Actually encrypts or decrypts messages
+
+def message_shifter(operation, encryption_key, message):	# Actually encrypts or decrypts messages
 	for x in encryption_key:
 		letter_counter = 1
 		new_message = ""
@@ -49,45 +49,42 @@ def message_shifter(operation, encryption_key, message):	#Actually encrypts or d
 				new_message = new_message + y
 			else:
 				old_letter_number = ALPHABET.index(y)
-				if x == "A":
+				if x == "A":	# Shift each letter by the position the letter occupies in the message
 					new_letter_number = old_letter_number + letter_counter * operation
-				elif x == "B":
+				elif x == "B":	# Shift each letter by the ammount of letters until the end of the message
 					new_letter_number = old_letter_number + (len(message) - (letter_counter - 1)) * operation
-				elif x == "C":
+				elif x == "C":	# Shift each letter by 2 (Caesar Cypher)
 					new_letter_number = old_letter_number + 2 * operation
-				letter_counter = letter_counter + 1
 				
 				while len(ALPHABET) - 1 < new_letter_number:
 					new_letter_number = new_letter_number - len(ALPHABET)
 				while new_letter_number < 0:
 					new_letter_number = new_letter_number + len(ALPHABET)
 				new_message = new_message + ALPHABET[new_letter_number]
+
+			letter_counter = letter_counter + 1
 		message = new_message
-	if operation == 1:
-		operation = "encrypted"
-	else:
-		operation = "decrypted"
-	print("Your {} message is '{}'".format(operation, message))
-	go_again()
+
+	return message 
 	
 	
-def go_again():
-	decision_made = False
+def done_using():
 	print("Would you like to encrypt/decrypt another message? (Y/N)")
-	while decision_made == False:
+	while True:
 		user_decision = input().upper()
 		if user_decision == "Y":
-			decision_made = True
-			message_encrypter()
+			return False
 		elif user_decision == "N":
-			decision_made = True
-			print("Shutting down...")
+			return True
 		else:
 			print("Please select whether or not you would like to encrypt/decrypt another message. (Y/N)")
 
 
 def main():
-	print("Message encrypter V1.1")
-	message_encrypter()
+	print("Message encrypter V1.2")
+	usage_over = False
+	while not usage_over:
+		message_encrypter()
+		usage_over = done_using()
 
 main()
