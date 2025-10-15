@@ -17,7 +17,7 @@ def message_encrypter():	#Setup and user input
 		else:
 			print("Please input a valid operation: encrypt or decrypt")
 			
-	print("Please enter the encryption key. (Combination of 'A' and 'B')")
+	print("Please enter the encryption key.")
 	while encryption_key_validity == False:	#Check encryption key composition
 		encryption_key = input().upper()
 		encryption_key_validity = True
@@ -25,7 +25,7 @@ def message_encrypter():	#Setup and user input
 			if x not in VALID_KEYS:
 				encryption_key_validity = False
 		if encryption_key_validity == False:
-			print("Please input a valid encryption key comprised only of 'A's and 'B's, all in uppercase.")
+			print("Please input a valid encryption key.")
 			
 	print("Please input the message.")
 	while message_validity == False:
@@ -35,7 +35,7 @@ def message_encrypter():	#Setup and user input
 			if x not in ALPHABET and x not in SPECIAL_CHARACTERS:
 				message_validity = False
 		if message_validity == False:
-			print("Please input a valid message, comprised only of lowercase letters and a few special symbols.")
+			print("Please input a valid message.")
 			
 	message_shifter(operation, encryption_key, message)
 		
